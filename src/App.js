@@ -8,6 +8,8 @@ import { getFormattedWeatherData } from './services/weather';
 import { ThreeDots } from 'react-loader-spinner'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { UilInfoCircle } from '@iconscout/react-unicons'
+import { UilSad } from '@iconscout/react-unicons'
 
 function App() {
 
@@ -20,21 +22,23 @@ function App() {
     const fetchWeather = async () => {
       try {
         setIsLoading(true)
+        isLoading && toast.info(`Fetching weather data for ${query.q}`, { icon: <UilInfoCircle />, progressStyle: {width: 100} })
         await getFormattedWeatherData({...query, units}).then(
-          (data) => { 
+          (data) => {
             setWeather(data) 
             setIsLoading(false)
+            // toast.dismiss()
           });
         }
       catch (error) {
-        toast.info(`Could not get weather details for ${query.q}`)
+        toast.error(`Could not get weather details for ${query.q}`, { autoClose: 5000, icon: <UilSad /> })
       }
     }
       fetchWeather()
   }, [query, units])
 
   const formatBackground = () => {
-    if(!weather) return 'from-cyan-700 to blue-700'
+    if(!weather) return 'from-yellow-700 to-orange-700'
     const threshold = units === 'metric' ? 25 : 60
     if (weather.temp <= threshold) return 'from-cyan-700 to blue-700'
 
@@ -43,7 +47,7 @@ function App() {
 
   return (
     <div className={`bg-gradient-to-t ${formatBackground()}`}>
-      <div className={`mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br ${formatBackground()}
+      <div className={`mx-auto max-w-screen-md py-5 px-32 bg-gradient-to-br ${formatBackground()}
         h-fit shadow-xl shadow-gray-400 border-l-pink-600 rounded-lg`}>
       <TopCities setQuery={setQuery} />
       <Inputs setQuery={setQuery} units={units} setUnits={setUnits} />
@@ -54,7 +58,8 @@ function App() {
           <TemperatureDetails weather={weather} />
           <Forecast type="hourly" forecast={weather.hourly} />
           <Forecast type="daily" forecast={weather.daily} />
-        </> ) : null}
+        </> 
+      ) : <div className={`bg-gradient-to-t ${formatBackground()}`}></div>}
 
         {isLoading === true && (<div className="max-w-full max-h-full flex justify-center items-center "> 
           <ThreeDots color="pink" />
