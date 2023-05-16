@@ -21,14 +21,17 @@ function App() {
       try {
         setIsLoading(true)
         await getFormattedWeatherData({...query, units}).then(
-          (data) => setWeather(data));
+          (data) => { 
+            setWeather(data) 
+            setIsLoading(false)
+          });
         }
       catch (error) {
         toast.info(`Could not get weather details for ${query.q}`)
       }
     }
       fetchWeather()
-  }, [query, units, isLoading])
+  }, [query, units])
 
   const formatBackground = () => {
     if(!weather) return 'from-cyan-700 to blue-700'
@@ -53,9 +56,9 @@ function App() {
           <Forecast type="daily" forecast={weather.daily} />
         </> ) : null}
 
-        {isLoading && <div className="max-w-full max-h-full flex justify-center items-center "> 
+        {isLoading === true && (<div className="max-w-full max-h-full flex justify-center items-center "> 
           <ThreeDots color="pink" />
-        </div>}
+        </div> ) }
         <ToastContainer autoClose={5000} />
 
       </div>
