@@ -32,9 +32,9 @@ function App() {
       catch (error) {
         toast.error(`Could not get weather details for ${query.q}`, { autoClose: 5000, icon: <UilSad /> })
       }
-      console.log(weather)
     }
       fetchWeather()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, units])
 
   const formatBackground = () => {
