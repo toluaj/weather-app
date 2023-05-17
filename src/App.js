@@ -27,12 +27,12 @@ function App() {
           (data) => {
             setWeather(data) 
             setIsLoading(false)
-            // toast.dismiss()
           });
         }
       catch (error) {
         toast.error(`Could not get weather details for ${query.q}`, { autoClose: 5000, icon: <UilSad /> })
       }
+      console.log(weather)
     }
       fetchWeather()
   }, [query, units])
@@ -47,17 +47,17 @@ function App() {
 
   return (
     <div className={`bg-gradient-to-t ${formatBackground()}`}>
-      <div className={`mx-auto max-w-screen-md py-5 px-32 bg-gradient-to-br ${formatBackground()}
-        h-fit shadow-xl shadow-gray-400 border-l-pink-600 rounded-lg`}>
+      <div className={`mx-auto max-w-screen-md py-5 px-16 md:px-32 bg-gradient-to-br ${formatBackground()}
+        h-auto shadow-xl shadow-gray-400 border-l-pink-600 rounded-lg`}>
       <TopCities setQuery={setQuery} />
       <Inputs setQuery={setQuery} units={units} setUnits={setUnits} />
 
       {weather ? (
-        <>
+        <> 
           <TimeLocation weather={weather} />
           <TemperatureDetails weather={weather} />
-          <Forecast type="hourly" forecast={weather.hourly} />
-          <Forecast type="daily" forecast={weather.daily} />
+          <Forecast type="hourly" forecast={weather && weather.hourly} />
+          <Forecast type="daily" forecast={weather && weather.daily} />
         </> 
       ) : <div className={`bg-gradient-to-t ${formatBackground()}`}></div>}
 

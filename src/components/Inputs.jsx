@@ -32,17 +32,18 @@ const Inputs = ({ setQuery, setUnits, units }) => {
   }
 
   return (
-    <div className='flex justify-center my-6'>
-        <div className='flex w-3/4 items-center justify-start space-x-4'>
+    <div className='flex md:flex justify-center my-2 md:my-6'>
+        <div className='flex w-64 md:w-3/4 items-center justify-start space-x-1 sm:space-x-4 mr-2'>
           <input placeholder='Search city e.g. London' type="text" value={city} onChange={(e) => handleInputChange(e)} 
-            className='text-xl font-light p-2 w-full shadow-xl focus:outline-none capitalize placeholder:normal-case placeholder:text-lg' />
+            className='text-base md:text-lg font-light p-2 w-full shadow-xl focus:outline-none capitalize 
+            placeholder:normal-case placeholder:text-base md:placeholder:text-lg rounded-md h-10' />
             <UilSearch size={25} className='text-white cursor-pointer transition ease-out hover:scale-110' onClick={handleCitySearch}/>
             <UilMapMarker size={25} className='text-white cursor-pointer transition ease-out hover:scale-110' onClick={handleLocationClick}/>
         </div>
 
-        <div className='flex w-1/4 items-center justify-center'>
+        <div className='flex w-auto md:w-1/4 items-center justify-center'>
             <button className='text-xl text-white font-light px-1' name='metric' onClick={handleUnitsChange}>°C</button>
-            <p className='text-xl text-white'>|</p>
+            <p className='text-sm md:text-xl text-white'>|</p>
             <button className='text-xl text-white font-light px-1' name='imperial' onClick={handleUnitsChange}>°F</button>
         </div>
     </div>
