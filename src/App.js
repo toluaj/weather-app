@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { UilInfoCircle } from '@iconscout/react-unicons'
 import { UilSad } from '@iconscout/react-unicons'
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
 
@@ -65,8 +66,8 @@ function App() {
           <ThreeDots color="pink" />
         </div> ) }
         <ToastContainer autoClose={5000} />
-
       </div>
+      <Analytics />
     </div>
   );
 }
